@@ -1,0 +1,144 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Express API",
+      "description": "Api Project",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/aktorler": {
+        "get": {
+          "tags":["Actor"],
+          "summary": "List of actors",
+          "responses": {
+            "200": {
+              "description": "Aktorlerin listesi döner"
+            }
+          }
+        },
+        "post": {
+          "tags":["Actor"],
+          "summary": "Add new actor",
+          "responses": {
+            "201": {
+              "description": "Yeni aktör başarıyla eklendi"
+            }
+          }
+        }
+      },
+      "/aktorler/{id}": {
+        "get": {
+          "tags":["Actor"],
+          "summary": "getbyid",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Aktorün detayları döner"
+            },
+            "400": {
+              "description": "Aktor mevcut değil"
+            },
+            "500": {
+              "description": "Sunucu hatası"
+            }
+          }
+        },
+        "delete": {
+          "tags":["Actor"],
+          "summary": "delete actor",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Aktor başarıyla silindi"
+            },
+            "400": {
+              "description": "Aktor mevcut değil"
+            },
+            "500": {
+              "description": "Sunucu hatası"
+            }
+          }
+        },
+        "put": {
+          "tags":["Actor"],
+          "summary": "update actor",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Actor"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Aktor başarıyla güncellendi"
+            },
+            "400": {
+              "description": "Aktor mevcut değil veya geçersiz istek"
+            },
+            "500": {
+              "description": "Sunucu hatası"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Actor": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "BearerAuth": []
+      }
+    ],
+    "securityDefinitions": {
+      "BearerAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
+  
